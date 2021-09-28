@@ -1,50 +1,28 @@
 <?php
+    require_once("../../../../config_vp_s2021.php");
+    require_once("fnc_user.php");
 	$author_name = "Andrus Rinde";
-	//echo $author_name;   //print
-	//vaatan praegust ajahetke
-	$full_time_now = date("d.m.Y H:i:s");
-	//vaatan nädalapäeva
-	$weekday_now = date("N");
-	//echo $weekday_now;
-	$weekday_names_et = ["esmaspäev", "teisipäev", "kolmapäev", "neljapäev", "reede", "laupäev", "pühapäev"];
-	//echo $weekday_names_et[$weekday_now - 1];
-	//küsime ainult tunde
-	$hour_now = date("H");
-	$day_category = "tavaline päev";
-	if($weekday_now <= 5){    // <  >  <=  >=  ==   ===    !=
-		$day_category = "koolipäev";
-		if($hour_now < 6 or $hour_now >= 23){
-			$part_of_day = "uneaeg";
-		}
-		if($hour_now >= 6 and $hour_now < 8){
-			$part_of_day = "valmistumine tööpäevaks";
-		}
-		if($hour_now >= 8 and $hour_now < 18){
-			$part_of_day = "aeg töisteks toimetusteks";
-		}
-		if($hour_now >= 18 and $hour_now < 23){
-			$part_of_day = "isiklik aeg";
-		}
-	} else {
-		$day_category = "puhkepäev";
-		if($hour_now < 9){
-			$part_of_day = "uneaeg";
-		}
-		if($hour_now >= 9 and $hour_now < 21){
-			$part_of_day = "mõnusalt vaba aeg";
-		}
-		if($hour_now >= 21){
-			$part_of_day = "õhtune puhkeaeg";
+	
+	//vaatan, mida POST meetodil saadeti
+	//var_dump($_POST);
+	
+	$today_html = null; //$today_html = "";
+	$today_adjective_error = null;
+	$todays_adjective = null;
+	//kontrollin, kas klikiti submit
+	if(isset($_POST["submit_todays_adjective"])){
+		//echo "Klikiti nuppu!";
+		if(!empty($_POST["todays_adjective_input"])){
+			$today_html = "<p>Tänane päev on " .$_POST["todays_adjective_input"] .".</p>";
+			$todays_adjective = $_POST["todays_adjective_input"];
+		} else {
+			$today_adjective_error = "Palun kirjutage tänase kohta omadussõna!";
 		}
 	}
 	
 	//lisan lehele juhusliku foto
 	$photo_dir = "../photos/";
-	//loen kataloogi sisu
-	//$all_files = scandir($photo_dir);
 	$all_files = array_slice(scandir($photo_dir), 2);
-	//echo $all_files;
-	//var_dump($all_files);
 	
 	//kontrollin ja võtan ainult fotod
 	$allowed_photo_types = ["image/jpeg", "image/png"];
@@ -60,12 +38,56 @@
 	
 	$file_count = count($all_photos);
 	$photo_num = mt_rand(0, $file_count - 1);
-	//echo $photo_num;
-	//<img src="photos/pilt.jpg" alt="Tallinna Ülikool">
+    
+    if(isset($_POST["photo_select_submit"])){
+		$photo_num = $_POST["photo_select"];
+	}
+    
 	$photo_html = '<img src="' .$photo_dir .$all_photos[$photo_num] .'" alt="Tallinna Ülikool">';
+	$photo_file_html = "\n <p>".$all_photos[$photo_num] ."</p> \n";
+    
+    $photo_list_html = "\n <ul> \n";
 	
-	//if($hour_now >=8 and $hour_now <= 18)
-	//if($hour_now < 7 and $hour_now > 23)
+	//tsükkel
+	//for($i=algväärtus; $i < piirväärtus; $i muutumine){...}
+	
+	//<ul>
+	//<li>pildifail1.jpg</li>
+	//...
+	//<li>pildifailn.jpg</li>
+	//</ul>
+	
+	for($i = 0; $i < $file_count; $i ++){
+		$photo_list_html .= "<li>" .$all_photos[$i] ."</li> \n";
+	}
+	$photo_list_html .= "</ul> \n";
+	
+/* 	<select name="photo_select">
+		<option value="0">tlu_astra_600x400_1.jpg</option> 
+		<option value="1">tlu_astra_600x400_2.jpg</option> 
+		<option value="2">tlu_hoov_600x400_1.jpg</option> 
+		<option value="3">tlu_mare_600x400_1.jpg</option> 
+		<option value="4">tlu_mare_600x400_2.jpg</option> 
+		<option value="5">tlu_terra_600x400_1.jpg</option> 
+		<option value="6">tlu_terra_600x400_2.jpg</option> 
+		<option value="7">tlu_terra_600x400_3.jpg</option> 
+	</select>  */
+	
+	$photo_select_html = '<select name="photo_select">' ."\n";
+	for($i = 0; $i < $file_count; $i ++){
+		$photo_select_html .= '<option value="' .$i .'"';
+        if($i == $photo_num){
+			$photo_select_html .= " selected";
+		}
+        $photo_select_html .= '>' .$all_photos[$i] ."</option> \n";
+	}
+	$photo_select_html .= "</select> \n";
+	
+    //sisse logimise ...
+    $notice = null;
+    if(isset($_POST["login_submit"])){
+        $notice = sign_in($_POST["email_input"], $_POST["password_input"]);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -77,9 +99,34 @@
 	<h1><?php echo $author_name; ?>, veebiprogrammeerimine</h1>
 	<p>See leht on valminud õppetöö raames ja ei sisalda mingit tõsiseltvõetavat sisu!</p>
 	<p>Õppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
-	<img src="3700x1100_pildivalik181.jpg" alt="Tallinna Ülikooli Mare hoone peauks" width="600">
 	<p>Õppetöö toimus 2021 sügisel.</p>
-	<p>Lehe avamise hetk: <span><?php echo $weekday_names_et[$weekday_now - 1] .", " .$full_time_now .", on " .$day_category .", " .$part_of_day; ?></span>.</p>
-	<?php echo $photo_html; ?>
+	<hr>
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <input type="email" name="email_input" placeholder="kasutajatunnus ehk e-post">
+    <input type="password" name="password_input" placeholder="salasõna">
+    <input type="submit" name="login_submit" value="Logi sisse">
+    </form>
+    <p><?php echo $notice; ?></p>
+    <hr>
+	<!--ekraanivorm-->
+	<form method="POST">
+		<input type="text" name="todays_adjective_input" placeholder="tänase päeva ilma omadus" value="<?php echo $todays_adjective; ?>">
+		<input type="submit" name="submit_todays_adjective" value="Saada ära">
+		<span><?php echo $today_adjective_error; ?></span>
+	</form>
+	<?php echo $today_html; ?>
+	<hr>
+	
+	<form method="POST">
+		<?php echo $photo_select_html; ?>
+        <input type="submit" name="photo_select_submit" value="Näita valitud fotot">
+	</form>
+	
+	<?php
+		echo $photo_html;
+        echo $photo_file_html;
+		echo "<hr> \n";
+		echo $photo_list_html;
+	?>
 </body>
 </html>
