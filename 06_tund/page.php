@@ -130,6 +130,7 @@
         <input type="submit" name="login_submit" value="Logi sisse">
 		<span><?php echo $notice; ?></span>
     </form>
+    <p>Loo endale <a href="add_user.php">kasutaja</a>!</p>
     <hr>
 	<!--ekraanivorm-->
 	<form method="POST">

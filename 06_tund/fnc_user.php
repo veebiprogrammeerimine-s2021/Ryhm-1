@@ -48,6 +48,9 @@
 				$_SESSION["user_id"] = $id_from_db;
                 $_SESSION["first_name"] = $firstname_from_db;
                 $_SESSION["last_name"] = $lastname_from_db;
+                //siin edaspidi sisselogimisel pärime SQL-iga kasutajaprofiili, kui see on olemas, siis loeme sealt tausta- ja tekstivärvid, muidu kasutame mingeid vaikevärve
+                $_SESSION["bg_color"] = "#AAAAAA"; //valge: #FFFFFF
+                $_SESSION["text_color"] = "#0000AA";//must: #000000
                 $stmt->close();
                 $conn->close();
                 header("Location: home.php");
