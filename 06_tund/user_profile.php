@@ -16,8 +16,13 @@
 	require_once("fnc_general.php");
     
     $notice = null;
-    $description = null;//tulevikus loetakse siia andmetabelist olemasolev kirjeldus
-    	    
+    $description = read_user_description();
+    
+	if(isset($_POST["profile_submit"])){
+		$description = test_input(filter_var($_POST["description_input"], FILTER_SANITIZE_STRING));
+		$notice = store_user_profile($description, $_POST["bg_color_input"],$_POST["text_color_input"]);
+	}
+	
     require_once("page_header.php");
 ?>
 	<h1><?php echo $_SESSION["first_name"] ." " .$_SESSION["last_name"]; ?>, veebiprogrammeerimine</h1>
