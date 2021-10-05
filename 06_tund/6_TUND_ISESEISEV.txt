@@ -1,5 +1,5 @@
 1) user_profile.php lehel:
-vormist saadav info talletada andmetabelisse vp_userprofiles
+vormist saadav info talletada andmetabelisse vpr_userprofiles
 Antud juhul võib väljasid ka tühjaks jätta.
 Kasutaja, kelle oma profiil on, tema id saab sessioonimuutujast $_SESSION[user_id"]
 
