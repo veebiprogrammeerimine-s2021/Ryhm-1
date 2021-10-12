@@ -89,6 +89,21 @@
         return $notice;
     }
     
+    function store_person_photo($file_name, $person_id){
+        $notice = null;
+        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $conn->set_charset("utf8");
+        $stmt = $conn->prepare("INSERT INTO picture (picture_file_name, person_id) VALUES (?, ?)"); 
+        $stmt->bind_param("si", $file_name, $person_id);
+        if($stmt->execute()){
+            $notice = "Uus foto edukalt salvestatud!";
+        } else {
+            $notice = "Uue foto andmebaasi salvestamisel tekkis viga: " .$stmt->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $notice;
+    }
     //--------- Vana osa ---------------------------------------------
     function read_all_films(){
         //var_dump($GLOBALS);
