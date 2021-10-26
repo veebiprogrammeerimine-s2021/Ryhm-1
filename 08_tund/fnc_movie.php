@@ -175,9 +175,9 @@
 		while($stmt->fetch()){
 			$html .= "<li>" .$first_name_from_db ." " .$last_name_from_db ." (sündinud: " .date_to_est_format($birth_date_from_db) ."), ";
 			if(!empty($role_from_db)){
-				$html .= "tegelane " .$role_from_db ." filmis " .$title_from_db ." (toodetud: " .$production_year_from_db .", kestus: " .duration_min_to_hour_and_min($duration_from_db) .")";
+				$html .= "tegelane " .$role_from_db .' filmis "' .$title_from_db .'" (toodetud: ' .$production_year_from_db .", kestus: " .duration_min_to_hour_and_min($duration_from_db) .")";
 			} else {
-				$html .= $title_from_db ." (toodetud: " .$production_year_from_db .", kestus: " .duration_min_to_hour_and_min($duration_from_db) .")";
+				$html .= '"' .$title_from_db .'" (toodetud: ' .$production_year_from_db .", kestus: " .duration_min_to_hour_and_min($duration_from_db) .")";
 			}
 			$html .= "</li> \n";
 		}

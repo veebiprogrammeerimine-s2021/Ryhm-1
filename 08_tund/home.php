@@ -26,6 +26,7 @@
         <li><a href="user_profile.php">Kasutajaprofiil</a></li>
         <li><a href="movie_relations.php">Filmi info seoste loomine</a></li>
         <li><a href="list_movie_info.php">Isikute ja filmide info</a></li>
+        <li><a href="gallery_photo_upload.php">Fotode üleslaadimine</a></li>
     </ul>
 </body>
 </html>
