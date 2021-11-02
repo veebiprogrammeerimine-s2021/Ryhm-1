@@ -14,11 +14,9 @@
     require_once("../../../../config_vp_s2021.php");
 	require_once("fnc_gallery.php");
     
-    $public_from = 2;
     $page = 1;
     $limit = 5;
-    $photo_count = count_public_photos($public_from);
-    //https://greeny.cs.tlu.ee/~rinde/vp2021/Ryhm-1/09_tund/gallery_public.php?page=3
+    $photo_count = count_own_photos();
     if(!isset($_GET["page"]) or $_GET["page"] < 1){
         $page = 1;
     } elseif(round($_GET["page"] - 1) * $limit >= $photo_count){
@@ -40,7 +38,7 @@
 		<li><a href="home.php">Avaleht</a></li>
     </ul>
 	<hr>
-    <h2>Avalike fotode galerii</h2>
+    <h2>Minu oma fotode galerii</h2>
     <div>
     <p>
     <?php
@@ -57,7 +55,7 @@
         }
     ?>
     </p>
-    <?php echo read_public_photo_thumbs($public_from, $page, $limit); ?>
+    <?php echo read_own_photo_thumbs($page, $limit); ?>
     </div>
 </body>
 </html>
