@@ -2,6 +2,7 @@
 	session_start();
     require_once("../../../../config_vp_s2021.php");
     require_once("fnc_user.php");
+    require_once("fnc_gallery.php");
 	$author_name = "Andrus Rinde";
 	
 	//vaatan, mida POST meetodil saadeti
@@ -140,6 +141,8 @@
 	</form>
 	<?php echo $today_html; ?>
 	<hr>
+    <?php echo show_latest_public_foto(); ?>
+    <hr>
 	
 	<form method="POST">
 		<?php echo $photo_select_html; ?>

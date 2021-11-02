@@ -17,9 +17,7 @@
     
     $photo_error = null;
     $photo_upload_notice = null;
-    $photo_orig_upload_dir = "../upload_photos_orig/";
-    $photo_normal_upload_dir = "../upload_photos_normal/";
-    $photo_thumbnail_upload_dir = "../upload_photos_thumb/";
+
     $normal_photo_max_width = 600;
     $normal_photo_max_height = 400;
 	$thumbnail_width = $thumbnail_height = 100;
@@ -79,7 +77,7 @@
                 $time_stamp = microtime(1) * 10000;
                 
                 //moodustan failinime, kasutame eesliidet
-                $file_name = $photo_filename_prefix ."_" .$time_stamp ."." .$file_type;
+                $file_name = $photo_filename_prefix .$time_stamp ."." .$file_type;
                 
                 //teen graafikaobjekti, image objekti
                 if($file_type == "jpg"){
@@ -97,7 +95,7 @@
                                 
                 //lisan vesimärgi
 				
-				add_watermark($my_new_temp_image, $watermark_file);
+				$my_new_temp_image = add_watermark($my_new_temp_image, $watermark_file);
                 
                 //salvestan
                 $photo_upload_notice = "Vähendatud pildi " .save_image($my_new_temp_image, $file_type, $photo_normal_upload_dir .$file_name);
