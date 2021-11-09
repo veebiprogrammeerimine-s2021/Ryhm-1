@@ -17,7 +17,7 @@
     
     $public_from = 2;
     $page = 1;
-    $limit = 5;
+    $limit = 20;
     $photo_count = count_public_photos($public_from);
     //https://greeny.cs.tlu.ee/~rinde/vp2021/Ryhm-1/09_tund/gallery_public.php?page=3
     if(!isset($_GET["page"]) or $_GET["page"] < 1){

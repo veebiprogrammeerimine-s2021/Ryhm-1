@@ -33,6 +33,7 @@
     $photo_size_ratio = 1;
     
     if(isset($_POST["photo_submit"])){
+        //var_dump($_FILES["photo_input"]);
         if(isset($_FILES["photo_input"]["tmp_name"]) and !empty($_FILES["photo_input"]["tmp_name"])){
             //kas on pilt ja mis tüüpi?
             $image_check = getimagesize($_FILES["photo_input"]["tmp_name"]);
@@ -108,12 +109,13 @@
                 //imagedestroy($my_temp_image);
                 
                 //kopeerime pildi originaalkujul, originaalnimega vajalikku kataloogi
-                if(move_uploaded_file($_FILES["photo_input"]["tmp_name"], $photo_orig_upload_dir .$file_name)){
+                /* if(move_uploaded_file($_FILES["photo_input"]["tmp_name"], $photo_orig_upload_dir .$file_name)){
                     $photo_upload_notice .= " Originaalfoto laeti üles!";
                     //$photo_upload_notice = store_person_photo($file_name, $_POST["person_for_photo_input"]);
                 } else {
                     $photo_upload_notice .= " Foto üleslaadimine ei õnnestunud!";
-                }
+                } */
+                $photo_upload_notice .= $photo_upload->move_original($photo_orig_upload_dir .$file_name);
 				
 				$photo_upload_notice .= " " .store_photo_data($file_name, $alt_text, $privacy);
                 unset($photo_upload);
