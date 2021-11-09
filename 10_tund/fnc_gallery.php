@@ -53,7 +53,7 @@
                 $photo_html .= $alttext_from_db;
             }
             $photo_html .= '" class="thumbs">' ."\n";
-            $gallery_html .= "<p>Lisatud: " .date_to_est_format($created_from_db) ."</p> \n";
+            $photo_html .= "<p>Lisatud: " .date_to_est_format($created_from_db) ."</p> \n";
             $photo_html .= "</div> \n";
         }
         if(empty($photo_html)){
@@ -108,7 +108,7 @@
             }
             $photo_html .= '" class="thumbs">' ."\n";
             $photo_html .= "</a>";
-            $gallery_html .= "<p>Lisatud: " .date_to_est_format($created_from_db) ."</p> \n";
+            $photo_html .= "<p>Lisatud: " .date_to_est_format($created_from_db) ."</p> \n";
             $photo_html .= "</div> \n";
         }
         if(empty($photo_html)){
