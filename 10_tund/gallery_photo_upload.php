@@ -14,6 +14,7 @@
     require_once("../../../../config_vp_s2021.php");
 	require_once("fnc_photoupload.php");
     require_once("fnc_general.php");
+    require_once("classes/Photoupload.class.php");
     
     $photo_error = null;
     $photo_upload_notice = null;
@@ -50,6 +51,7 @@
                 $photo_error = "Valitud fail ei ole pilt!";
             }
             
+            
             //Kas on lubatud suurusega?
             if(empty($photo_error) and $_FILES["photo_input"]["size"] > $photo_upload_size_limit){
                 $photo_error .= "Valitud fail on liiga suur!";
@@ -73,6 +75,9 @@
 			
             
             if(empty($photo_error)){
+                //hakkan klassi kasutama
+                $photo_upload = new Photoupload($_FILES["photo_input"], $file_type);
+                
                 //teen ajatempli
                 $time_stamp = microtime(1) * 10000;
                 

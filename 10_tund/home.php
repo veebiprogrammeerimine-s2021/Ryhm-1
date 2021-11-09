@@ -11,6 +11,15 @@
         header("Location: page.php");
     }
     
+    //proovin klassi
+    //require_once("classes/Test.class.php");
+    //$test_object = new Test(27);
+    //echo $test_object->secret_number;
+    //echo " Avalik number on: " .$test_object->public_number;
+    //$test_object->reveal();
+    //unset($test_object);
+    //$test_object->reveal();
+    
     require_once("page_header.php");
 ?>
 
