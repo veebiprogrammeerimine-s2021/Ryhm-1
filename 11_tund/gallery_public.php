@@ -42,7 +42,7 @@
         <div class="modalhorizontal">
             <div class="modalvertical">
                 <p id="modalcaption"></p>
-                <img src="../pics/empty.png" alt="Galeriipilt">
+                <img id="modalimg" src="../pics/empty.png" alt="Galeriipilt">
             </div>
         </div>
     </div>
