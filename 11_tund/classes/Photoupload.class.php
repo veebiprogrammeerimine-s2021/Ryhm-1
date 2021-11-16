@@ -49,7 +49,7 @@
                 $error = "Valitud fail on liiga suur!";
 				$this->error = $error;
             }
-            return $this->error;
+            return $error;
         }
 		
 		public function check_alowed_type($allowed_types){

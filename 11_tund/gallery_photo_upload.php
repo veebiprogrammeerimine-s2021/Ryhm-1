@@ -21,7 +21,7 @@
 
     $normal_photo_max_width = 600;
     $normal_photo_max_height = 400;
-	$allowed_photo_types = ["image/jpeg", "image/png", "image/gif"];
+	$allowed_photo_types = ["image/jpeg", "image/png"];
     $watermark_file = "../pics/vp_logo_w100_overlay.png";
     
     $file_type = null;
@@ -49,7 +49,7 @@
 		}
 				
         if(isset($_FILES["photo_input"]["tmp_name"]) and !empty($_FILES["photo_input"]["tmp_name"])){
-						//fail on, klass kontrollib kohe, kas on foto
+			//fail on, klass kontrollib kohe, kas on foto
 			$photo_upload = new Photoupload($_FILES["photo_input"]);
 			if(empty($photo_upload->error)){
 				//kas on lubatud tüüpi
@@ -91,6 +91,8 @@
 		}
     }
     
+    $to_head = '<script src="javascript/checkFileSize.js" defer></script>' ."\n";
+    
     require("page_header.php");
 ?>
 
@@ -120,7 +122,8 @@
         <input type="radio" name="privacy_input" id="privacy_input_3" value="3" <?php if($privacy == 3){echo " checked";} ?>>
         <label for="privacy_input_3">Avalik (kõik näevad)</label>
         <br>
-        <input type="submit" name="photo_submit" value="Lae pilt üles">
+        <input type="submit" name="photo_submit" id="photo_submit" value="Lae pilt üles">
+        <span id="notice">Vali pilt!</span>
     </form>
     <span><?php echo $photo_upload_notice; ?></span>
 </body>
