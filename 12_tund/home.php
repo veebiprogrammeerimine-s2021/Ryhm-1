@@ -1,15 +1,5 @@
 <?php
-    //alustame sessiooni
-    session_start();
-    //kas on sisselogitud
-    if(!isset($_SESSION["user_id"])){
-        header("Location: page.php");
-    }
-    //väljalogimine
-    if(isset($_GET["logout"])){
-        session_destroy();
-        header("Location: page.php");
-    }
+    require_once("use_session.php");
     
     //proovin klassi
     //require_once("classes/Test.class.php");
@@ -29,7 +19,7 @@
     } else {
         $last_visitor = "<p>Küpsiseid ei leitud, viimane kasutaja pole teada.</p> \n";
     }
-    var_dump($_COOKIE);
+    //var_dump($_COOKIE);
     //cookie muutmine on lihtsalt uue väärtusega üle kirjutamine
     //cookie kustutamiseks kirjutatakse ta üle aegumistähtajaga, mis on minevikus
     //näiteks: time() - 3600
