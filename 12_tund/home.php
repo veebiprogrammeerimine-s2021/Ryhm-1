@@ -20,6 +20,20 @@
     //unset($test_object);
     //$test_object->reveal();
     
+    //küpsiste ehk cookie näide
+    //86400 = 60 sekundit * 60 minutit * 24 tundi
+    setcookie("vpvisitor", $_SESSION["first_name"] ." " .$_SESSION["last_name"], time() + (86400 * 14), "/~rinde/vp2021/Ryhm-1/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
+    $last_visitor = null;
+    if(isset($_COOKIE["vpvisitor"])){
+        $last_visitor = "<p>Viimati külastas selles arvutis seda lehte " .$_COOKIE["vpvisitor"] ."</p> \n";
+    } else {
+        $last_visitor = "<p>Küpsiseid ei leitud, viimane kasutaja pole teada.</p> \n";
+    }
+    var_dump($_COOKIE);
+    //cookie muutmine on lihtsalt uue väärtusega üle kirjutamine
+    //cookie kustutamiseks kirjutatakse ta üle aegumistähtajaga, mis on minevikus
+    //näiteks: time() - 3600
+    
     require_once("page_header.php");
 ?>
 
@@ -28,6 +42,8 @@
 	<p>Õppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
 	<p>Õppetöö toimus 2021 sügisel.</p>
 	<hr>
+        <?php echo $last_visitor; ?>
+    <hr>
     <ul>
         <li><a href="?logout=1">Logi välja</a></li>
 		<li><a href="list_films.php">Filmide nimekirja vaatamine</a> versioon 1</li>
