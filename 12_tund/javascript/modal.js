@@ -43,7 +43,7 @@ function storeRating(){
             if(this.readyState == 4 && this.status == 200){
                 //asjad, mida teha, kui õnnestus
                 //vastuseks tuleb this.responseText;
-                document.querySelector("#avgRating").innerHTML = "Keskmine hinne: " + this.responseText;
+                document.querySelector("#avgRating").innerHTML = this.responseText;
 				document.querySelector("#rating" + photoId).innerHTML = this.responseText;
                 document.querySelector("#storeRating").removeEventListener("click", storeRating);
             }
