@@ -20,10 +20,18 @@
     $thumbnail_width = $thumbnail_height = 100;
     
     if(isset($_POST["news_submit"])){
+        //Uudisle võib aga ei pea lisama pilti.
+        //kui pilt on valitud, tasub see kõige esimesena serverisse salvestada
+        //ja andmebaasi lisada.
+        //Just lisatud kirje id saab kätte:   $added_id = $conn->insert_id;
+        //siis saate uudise enda koos tema foto id-ga salvestada.
+        
         //Uudise sisu kontrollimiseks kindlasti kasutada meie test_input funktsiooni (fnc_general.php).
         //seal on htmlspecialchars(uudis), mis kodeerib html märgid ringi (  < --> &lt;  )
         //uudise näitamisel on neid tagasi vaja, selleks htmlspecialchars_decode(uudis andmebaasist)
-        //
+        //Aegumise osas uudise näitamisel võrdlete "tänase päevaga"
+        //$today = date("Y-m-d");
+        //SQL lauses     WHERE expire >= ?
     }
     
     //$to_head = '<script src="javascript/checkFileSize.js" defer></script>' ."\n";
